@@ -1,0 +1,42 @@
+[
+  {
+    "type": "stream",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "flow_pair",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "flow_pair",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "document",
+          "named": true
+        },
+        {
+          "type": "flow_pair",
+          "named": true
+        }
+      ]
+    }
+  }
+]

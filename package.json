@@ -1,0 +1,37 @@
+{
+  "name": "tree-sitter-yaml",
+  "version": "0.1.0",
+  "description": "YAML grammar for tree-sitter",
+  "keywords": [
+    "parser",
+    "lexer"
+  ],
+  "main": "index.js",
+  "repository": "https://github.com/ikatyang/tree-sitter-yaml",
+  "homepage": "https://github.com/ikatyang/tree-sitter-yaml#readme",
+  "author": {
+    "name": "Ika",
+    "email": "ikatyang@gmail.com",
+    "url": "https://github.com/ikatyang"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "yarn tree-sitter test",
+    "prepack": "yarn tree-sitter generate",
+    "release": "standard-version",
+    "tree-sitter": "./tree-sitter/target/release/tree-sitter"
+  },
+  "dependencies": {
+    "nan": "^2.14.0"
+  },
+  "devDependencies": {
+    "natural-orderby": "2.0.3",
+    "standard-version": "7.0.0"
+  },
+  "files": [
+    "/src/",
+    "/binding.gyp",
+    "/grammar.js",
+    "/index.js"
+  ]
+}

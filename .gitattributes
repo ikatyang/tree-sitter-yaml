@@ -1,0 +1,6 @@
+* text eol=lf
+
+/src/** linguist-generated
+/src/scanner.cc linguist-generated=false
+/index.js linguist-generated
+/binding.gyp linguist-detectable=false

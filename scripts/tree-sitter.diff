@@ -1,0 +1,13 @@
+diff --git a/cli/src/test.rs b/cli/src/test.rs
+index bc05f29..3578a0b 100644
+--- a/cli/src/test.rs
++++ b/cli/src/test.rs
+@@ -17,7 +17,7 @@ lazy_static! {
+         .multi_line(true)
+         .build()
+         .unwrap();
+-    static ref DIVIDER_REGEX: ByteRegex = ByteRegexBuilder::new(r"\r?\n---+\r?\n")
++    static ref DIVIDER_REGEX: ByteRegex = ByteRegexBuilder::new(r"\r?\n------+\r?\n")
+         .multi_line(true)
+         .build()
+         .unwrap();
