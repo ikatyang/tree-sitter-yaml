@@ -4,7 +4,7 @@ rust:
   - stable
 
 script:
-  - if [ ! -d "./tree-sitter" ]; then bash ./scripts/setup-tree-sitter.sh; fi
+  - if [ ! -d "./tree-sitter/target/release" ]; then bash ./scripts/setup-tree-sitter.sh; fi
   - ./tree-sitter/target/release/tree-sitter test
 
 cache:
