@@ -167,6 +167,7 @@ struct Scanner {
   void adv(TSLexer *lexer) {
     cur_col++;
     cur_chr = lexer->lookahead;
+    fprintf(stderr, "-> adv -> cur = '%c' [%d, %d]\n", cur_chr, cur_row, cur_col);
     lexer->advance(lexer, false);
   }
 
@@ -174,12 +175,14 @@ struct Scanner {
     cur_row++;
     cur_col = 0;
     cur_chr = lexer->lookahead;
+    fprintf(stderr, "-> adv_nwl -> cur = '\\n' [%d, %d]\n", cur_row, cur_col);
     lexer->advance(lexer, false);
   }
 
   void skp(TSLexer *lexer) {
     cur_col++;
     cur_chr = lexer->lookahead;
+    fprintf(stderr, "-> skp -> cur = '%c' [%d, %d]\n", cur_chr, cur_row, cur_col);
     lexer->advance(lexer, true);
   }
 
@@ -187,6 +190,7 @@ struct Scanner {
     cur_row++;
     cur_col = 0;
     cur_chr = lexer->lookahead;
+    fprintf(stderr, "-> skp_nwl -> cur = '\\n' [%d, %d]\n", cur_row, cur_col);
     lexer->advance(lexer, true);
   }
 
@@ -194,6 +198,11 @@ struct Scanner {
     end_row = cur_row;
     end_col = cur_col;
     lexer->mark_end(lexer);
+    if (cur_chr == '\n') {
+      fprintf(stderr, "-> mrk_end '\\n' [%d, %d]\n", cur_row, cur_col);
+    } else {
+      fprintf(stderr, "-> mrk_end '%c' [%d, %d]\n", cur_chr, cur_row, cur_col);
+    }
   }
 
   void init() {
@@ -208,11 +217,13 @@ struct Scanner {
   }
 
   void pop_ind() {
+    fprintf(stderr, "-> pop %d (%c)\n", ind_len_stk.back(), ind_typ_stk.back());
     ind_len_stk.pop_back();
     ind_typ_stk.pop_back();
   }
 
   void push_ind(int16_t typ, int16_t len) {
+    fprintf(stderr, "-> push %d (%c)\n", len, typ);
     ind_len_stk.push_back(len);
     ind_typ_stk.push_back(typ);
   }
@@ -664,6 +675,12 @@ struct Scanner {
       } else break;
     }
 
+    fprintf(stderr, "-> ind: %d (%c)", ind_len_stk[0], ind_typ_stk[0]);
+    for (int i = 1; i < ind_len_stk.size(); i++) {
+      fprintf(stderr, ", %d (%c)", ind_len_stk[i], ind_typ_stk[i]);
+    }
+    fprintf(stderr, "\n");
+
     if (LKA == 0) {
       if (VLD[BL]) {MRK_END();POP_IND();RET_SYM(BL)}
       if (VLD[END_OF_FILE]) {MRK_END();RET_SYM(END_OF_FILE)}
@@ -704,6 +721,7 @@ struct Scanner {
       || (VLD[BR_SQT_STR_CTN] && is_br && scn_sqt_str_cnt(lexer, BR_SQT_STR_CTN))
     ) return true;
 
+    fprintf(stderr, "-> check '%c'\n", LKA);
     if (LKA == '%') {
       if (VLD[S_DIR_YML_BGN] && is_s) return scn_dir_bgn(lexer);
     } else if (LKA == '*') {
@@ -857,6 +875,8 @@ struct Scanner {
     bool maybe_sgl_pln_flw = (VLD[R_SGL_PLN_FLW] && is_r) || (VLD[BR_SGL_PLN_FLW] && is_br);
     bool maybe_mtl_pln_blk = (VLD[R_MTL_PLN_BLK] && is_r) || (VLD[BR_MTL_PLN_BLK] && is_br);
     bool maybe_mtl_pln_flw = (VLD[R_MTL_PLN_FLW] && is_r) || (VLD[BR_MTL_PLN_FLW] && is_br);
+
+    fprintf(stderr, "-> check plain: %d %d %d %d\n", maybe_sgl_pln_blk, maybe_sgl_pln_flw, maybe_mtl_pln_blk, maybe_mtl_pln_flw);
 
     if (maybe_sgl_pln_blk || maybe_sgl_pln_flw || maybe_mtl_pln_blk || maybe_mtl_pln_flw) {
       bool is_in_blk = maybe_sgl_pln_blk || maybe_mtl_pln_blk;
