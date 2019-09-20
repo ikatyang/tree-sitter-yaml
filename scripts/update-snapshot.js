@@ -17,10 +17,7 @@ function updateTestOutputs(dirname) {
   let stdout;
 
   try {
-    child_process.execFileSync(
-      "./tree-sitter/target/release/tree-sitter",
-      ["test"],
-    );
+    child_process.execFileSync("./node_modules/.bin/tree-sitter", ["test"]);
   } catch (error) {
     stdout = error.stdout.toString();
   }

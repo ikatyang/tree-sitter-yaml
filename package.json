@@ -16,17 +16,17 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "yarn tree-sitter test",
-    "prepack": "yarn tree-sitter generate",
-    "release": "standard-version",
-    "tree-sitter": "./tree-sitter/target/release/tree-sitter"
+    "test": "tree-sitter test",
+    "prepack": "tree-sitter generate",
+    "release": "standard-version"
   },
   "dependencies": {
     "nan": "^2.14.0"
   },
   "devDependencies": {
     "natural-orderby": "2.0.3",
-    "standard-version": "7.0.0"
+    "standard-version": "7.0.0",
+    "tree-sitter-cli": "0.15.9"
   },
   "files": [
     "/src/",
