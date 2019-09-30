@@ -1,7 +1,6 @@
 const fs = require("fs");
 const { orderBy } = require("natural-orderby");
 const path = require("path");
-const { writeTest } = require("./utils");
 
 const testSuiteDirname = "./yaml-test-suite";
 const whitelistForValidTest = [
@@ -33,4 +32,20 @@ for (const title of orderBy(Object.keys(testCases))) {
   finalTestCases[title] = testCases[title];
 }
 
-writeTest("./corpus/spec.txt", finalTestCases);
+fs.writeFileSync(
+  "./corpus/spec.txt",
+  Object.entries(finalTestCases)
+    .map(([title, { input, output }]) =>
+      [
+        "=".repeat(80),
+        title,
+        "=".repeat(80),
+        input,
+        "-".repeat(80),
+        "",
+        output.trim(),
+        ""
+      ].join("\n")
+    )
+    .join("\n")
+);

@@ -1,10 +1,13 @@
-language: node_js
+language: rust
 
-node_js:
-  - "12"
+rust:
+  - stable
 
 script:
-  - yarn test
+  - if [ ! -d "./tree-sitter/target/release" ]; then bash ./scripts/setup-tree-sitter.sh; fi
+  - ./tree-sitter/target/release/tree-sitter test
 
 cache:
-  yarn: true
+  cargo: true
+  directories:
+    - ./tree-sitter
