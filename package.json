@@ -21,6 +21,12 @@
     "release": "standard-version",
     "tree-sitter": "./tree-sitter/target/release/tree-sitter"
   },
+  "standard-version": {
+    "preset": "angular",
+    "scripts": {
+      "postbump": "rm -r docs && node scripts/generate-playground.js && git add docs"
+    }
+  },
   "dependencies": {
     "nan": "^2.14.0"
   },
