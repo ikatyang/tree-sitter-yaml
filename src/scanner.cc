@@ -17,7 +17,8 @@ enum TokenType {
   R_BLK_KEY_BGN,  BR_BLK_KEY_BGN, B_BLK_KEY_BGN,
   R_BLK_VAL_BGN,  BR_BLK_VAL_BGN, B_BLK_VAL_BGN,
   R_BLK_IMP_BGN,
-  R_BLK_STR_BGN,  BR_BLK_STR_BGN,
+  R_BLK_LIT_BGN,  BR_BLK_LIT_BGN,
+  R_BLK_FLD_BGN,  BR_BLK_FLD_BGN,
                   BR_BLK_STR_CTN,
   R_FLW_SEQ_BGN,  BR_FLW_SEQ_BGN, B_FLW_SEQ_BGN,
   R_FLW_SEQ_END,  BR_FLW_SEQ_END,
@@ -848,9 +849,12 @@ struct Scanner {
         if (is_br_dqt_esc_seq) return scn_dqt_esc_seq(lexer, BR_DQT_ESC_SEQ);
         return false;
       }
-    } else if (LKA == '|' || LKA == '>') {
-      if (VLD[R_BLK_STR_BGN] && is_r) return scn_blk_str_bgn(lexer, R_BLK_STR_BGN);
-      if (VLD[BR_BLK_STR_BGN] && is_br) return scn_blk_str_bgn(lexer, BR_BLK_STR_BGN);
+    } else if (LKA == '|') {
+      if (VLD[R_BLK_LIT_BGN] && is_r) return scn_blk_str_bgn(lexer, R_BLK_LIT_BGN);
+      if (VLD[BR_BLK_LIT_BGN] && is_br) return scn_blk_str_bgn(lexer, BR_BLK_LIT_BGN);
+    } else if (LKA == '>') {
+      if (VLD[R_BLK_FLD_BGN] && is_r) return scn_blk_str_bgn(lexer, R_BLK_FLD_BGN);
+      if (VLD[BR_BLK_FLD_BGN] && is_br) return scn_blk_str_bgn(lexer, BR_BLK_FLD_BGN);
     }
 
     bool maybe_sgl_pln_blk = (VLD[R_SGL_PLN_BLK] && is_r) || (VLD[BR_SGL_PLN_BLK] && is_br) || (VLD[B_SGL_PLN_BLK] && is_b);
