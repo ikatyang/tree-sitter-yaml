@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-yaml",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "YAML grammar for tree-sitter",
   "keywords": [
     "parser",
@@ -18,7 +18,7 @@
   "scripts": {
     "test": "yarn tree-sitter test",
     "prepack": "yarn tree-sitter generate",
-    "release": "standard-version",
+    "release": "standard-version --commit-all",
     "tree-sitter": "./tree-sitter/target/release/tree-sitter"
   },
   "standard-version": {
