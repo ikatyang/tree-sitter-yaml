@@ -1105,8 +1105,9 @@ block: ># comment
 --------------------------------------------------------------------------------
 
 (ERROR
-  (flow_node
-    (plain_scalar)))
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar))))
 
 ================================================================================
 Comment without whitespace after doublequoted scalar [INVALID]
@@ -2129,8 +2130,9 @@ a:
 --------------------------------------------------------------------------------
 
 (ERROR
-  (flow_node
-    (plain_scalar)))
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar))))
 
 ================================================================================
 Invalid tag [INVALID]
@@ -2310,9 +2312,11 @@ Mapping starting at --- line [INVALID]
 
 --------------------------------------------------------------------------------
 
-(ERROR
-  (flow_node
-    (plain_scalar)))
+(stream
+  (document
+    (flow_node
+      (plain_scalar)))
+  (MISSING _eof))
 
 ================================================================================
 Mapping with anchor on document start line [INVALID]
@@ -3581,8 +3585,9 @@ key: - a
 --------------------------------------------------------------------------------
 
 (ERROR
-  (flow_node
-    (plain_scalar)))
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar))))
 
 ================================================================================
 Sequence With Same Indentation as Parent Mapping
@@ -8576,10 +8581,8 @@ c"
           key: (flow_node
             (plain_scalar)))
         (ERROR
-          (flow_node
-            (plain_scalar))
-          (flow_node
-            (plain_scalar)))))))
+          (plain_scalar)
+          (plain_scalar))))))
 
 ================================================================================
 Wrong indented sequence item [INVALID]

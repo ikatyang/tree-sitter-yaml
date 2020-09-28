@@ -18,7 +18,8 @@ module.exports = grammar({
     $._r_blk_key_bgn,  $._br_blk_key_bgn, $._b_blk_key_bgn, // ?
     $._r_blk_val_bgn,  $._br_blk_val_bgn, $._b_blk_val_bgn, // :
     $._r_blk_imp_bgn,                                       // : (implicit)
-    $._r_blk_str_bgn,  $._br_blk_str_bgn,                   // | >
+    $._r_blk_lit_bgn,  $._br_blk_lit_bgn,                   // |
+    $._r_blk_fld_bgn,  $._br_blk_fld_bgn,                   // >
                        $._br_blk_str_ctn,                   // block scalar content
     $._r_flw_seq_bgn,  $._br_flw_seq_bgn, $._b_flw_seq_bgn, // [
     $._r_flw_seq_end,  $._br_flw_seq_end,                   // ]
@@ -229,8 +230,8 @@ module.exports = grammar({
     _r_blk_str_val: $ => choice($._r_blk_str, seq($._r_prp, choice($._r_blk_str, $._br_blk_str))),
     _br_blk_str_val: $ => choice($._br_blk_str, seq($._br_prp, choice($._r_blk_str, $._br_blk_str))),
 
-    _r_blk_str: $ => seq($._r_blk_str_bgn, repeat($._br_blk_str_ctn), $._bl),
-    _br_blk_str: $ => seq($._br_blk_str_bgn, repeat($._br_blk_str_ctn), $._bl),
+    _r_blk_str: $ => seq(choice($._r_blk_lit_bgn, $._r_blk_fld_bgn), repeat($._br_blk_str_ctn), $._bl),
+    _br_blk_str: $ => seq(choice($._br_blk_lit_bgn, $._br_blk_fld_bgn), repeat($._br_blk_str_ctn), $._bl),
 
     // flow value in block
 
@@ -435,7 +436,7 @@ module.exports = grammar({
   },
 });
 
-module.exports = global_alias(module.exports, {
+module.exports = global_alias(global_alias(module.exports, {
   ..._("yaml_directive", "_s_dir_yml"),
   ..._("yaml_version", "_r_dir_yml_ver"),
   ..._("tag_directive", "_s_dir_tag"),
@@ -479,6 +480,27 @@ module.exports = global_alias(module.exports, {
   ..._("escape_sequence", "_r_dqt_esc_nwl", "_br_dqt_esc_nwl",
                           "_r_dqt_esc_seq", "_br_dqt_esc_seq",
                           "_r_sqt_esc_sqt", "_br_sqt_esc_sqt"),
+}), {
+  ..._("---", "_s_drs_end"),
+  ..._("...", "_s_doc_end"),
+  ..._("-", "_r_blk_seq_bgn", "_br_blk_seq_bgn", "_b_blk_seq_bgn"),
+  ..._("?", "_r_blk_key_bgn", "_br_blk_key_bgn", "_b_blk_key_bgn"),
+  ..._(":", "_r_blk_val_bgn", "_br_blk_val_bgn", "_b_blk_val_bgn"),
+  ..._(":", "_r_blk_imp_bgn"),
+  ..._("|", "_r_blk_lit_bgn", "_br_blk_lit_bgn"),
+  ..._(">", "_r_blk_fld_bgn", "_br_blk_fld_bgn"),
+  ..._("[", "_r_flw_seq_bgn", "_br_flw_seq_bgn", "_b_flw_seq_bgn"),
+  ..._("]", "_r_flw_seq_end", "_br_flw_seq_end"),
+  ..._("{", "_r_flw_map_bgn", "_br_flw_map_bgn", "_b_flw_map_bgn"),
+  ..._("}", "_r_flw_map_end", "_br_flw_map_end"),
+  ..._(",", "_r_flw_sep_bgn", "_br_flw_sep_bgn"),
+  ..._("?", "_r_flw_key_bgn", "_br_flw_key_bgn"),
+  ..._(":", "_r_flw_jsv_bgn", "_br_flw_jsv_bgn"),
+  ..._(":", "_r_flw_njv_bgn", "_br_flw_njv_bgn"),
+  ..._("\"", "_r_dqt_str_bgn", "_br_dqt_str_bgn", "_b_dqt_str_bgn"),
+  ..._("\"", "_r_dqt_str_end", "_br_dqt_str_end"),
+  ..._("'", "_r_sqt_str_bgn", "_br_sqt_str_bgn", "_b_sqt_str_bgn"),
+  ..._("'", "_r_sqt_str_end", "_br_sqt_str_end"),
 });
 
 function _(alias_value, ...rule_names) {
@@ -529,9 +551,11 @@ function recursive_alias(rule, alias_map, checklist) {
     case "SYMBOL":
       if (rule.name in alias_map) {
         checklist[rule.name]++;
-        return { type: "ALIAS", content: rule, named: true, value: alias_map[rule.name].name };
+        const alias = alias_map[rule.name].name;
+        return { type: "ALIAS", content: rule, named: /[a-z]/i.test(alias), value: alias };
       }
     case "BLANK":
+    case "ALIAS":
       return rule;
     default:
       throw new Error(`Unexpected rule type ${JSON.stringify(rule.type)}`);
