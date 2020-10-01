@@ -119,6 +119,7 @@ comments: >
 </script>
 <script>
   let select = document.getElementById('language-select')
-  select.nodeValue = 'yaml'
+  select.value = 'yaml'
+  select.dispatchEvent(new Event('change'))
 </script>
 
