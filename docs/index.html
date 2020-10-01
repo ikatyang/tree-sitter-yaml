@@ -117,3 +117,9 @@ comments: >
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   crossorigin="anonymous">
 </script>
+<script>
+  let select = document.getElementById('language-select')
+  select.value = 'yaml'
+  select.dispatchEvent(new Event('change'))
+</script>
+
