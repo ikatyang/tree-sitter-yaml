@@ -272,6 +272,37 @@
     }
   },
   {
+    "type": "plain_scalar",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "boolean_scalar",
+          "named": true
+        },
+        {
+          "type": "float_scalar",
+          "named": true
+        },
+        {
+          "type": "integer_scalar",
+          "named": true
+        },
+        {
+          "type": "null_scalar",
+          "named": true
+        },
+        {
+          "type": "string_scalar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "reserved_directive",
     "named": true,
     "fields": {},
@@ -407,6 +438,10 @@
     "named": true
   },
   {
+    "type": "boolean_scalar",
+    "named": true
+  },
+  {
     "type": "directive_name",
     "named": true
   },
@@ -419,7 +454,19 @@
     "named": true
   },
   {
-    "type": "plain_scalar",
+    "type": "float_scalar",
+    "named": true
+  },
+  {
+    "type": "integer_scalar",
+    "named": true
+  },
+  {
+    "type": "null_scalar",
+    "named": true
+  },
+  {
+    "type": "string_scalar",
     "named": true
   },
   {

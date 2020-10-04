@@ -37,13 +37,15 @@ console.log(tree.rootNode.toString());
 //       (block_mapping
 //         (block_mapping_pair
 //           key: (flow_node
-//             (plain_scalar))
+//             (plain_scalar
+//               (string_scalar)))
 //           value: (block_node
 //             (anchor)
 //             (block_sequence
 //               (block_sequence_item
 //                 (flow_node
-//                   (plain_scalar))))))))))
+//                   (plain_scalar
+//                     (string_scalar)))))))))))
 ```
 
 ## License
