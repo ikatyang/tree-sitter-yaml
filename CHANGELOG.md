@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* add literal aliases ([#11](https://github.com/ikatyang/tree-sitter-yaml/issues/11)) ([f75b1f9](https://github.com/ikatyang/tree-sitter-yaml/commit/f75b1f9))
+* expose literal tokens as anonymous nodes ([#11](https://github.com/ikatyang/tree-sitter-yaml/issues/11)) ([f75b1f9](https://github.com/ikatyang/tree-sitter-yaml/commit/f75b1f9))
 
 
 
