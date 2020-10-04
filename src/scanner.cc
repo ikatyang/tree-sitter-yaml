@@ -1,9 +1,13 @@
 #include <tree_sitter/parser.h>
 #include <vector>
 
+// tree-sitter does not support multiple files for external scanner
+#include "./schema.generated.cc"
+
 namespace {
 
 using std::vector;
+using namespace tree_sitter_yaml;
 
 enum TokenType {
   END_OF_FILE,
@@ -37,10 +41,16 @@ enum TokenType {
   R_SQT_STR_CTN,  BR_SQT_STR_CTN,
   R_SQT_ESC_SQT,  BR_SQT_ESC_SQT,
   R_SQT_STR_END,  BR_SQT_STR_END,
-  R_SGL_PLN_BLK,  BR_SGL_PLN_BLK, B_SGL_PLN_BLK,
-  R_SGL_PLN_FLW,  BR_SGL_PLN_FLW,
-  R_MTL_PLN_BLK,  BR_MTL_PLN_BLK,
-  R_MTL_PLN_FLW,  BR_MTL_PLN_FLW,
+
+  R_SGL_PLN_NUL_BLK, BR_SGL_PLN_NUL_BLK, B_SGL_PLN_NUL_BLK, R_SGL_PLN_NUL_FLW, BR_SGL_PLN_NUL_FLW,
+  R_SGL_PLN_BOL_BLK, BR_SGL_PLN_BOL_BLK, B_SGL_PLN_BOL_BLK, R_SGL_PLN_BOL_FLW, BR_SGL_PLN_BOL_FLW,
+  R_SGL_PLN_INT_BLK, BR_SGL_PLN_INT_BLK, B_SGL_PLN_INT_BLK, R_SGL_PLN_INT_FLW, BR_SGL_PLN_INT_FLW,
+  R_SGL_PLN_FLT_BLK, BR_SGL_PLN_FLT_BLK, B_SGL_PLN_FLT_BLK, R_SGL_PLN_FLT_FLW, BR_SGL_PLN_FLT_FLW,
+  R_SGL_PLN_STR_BLK, BR_SGL_PLN_STR_BLK, B_SGL_PLN_STR_BLK, R_SGL_PLN_STR_FLW, BR_SGL_PLN_STR_FLW,
+
+  R_MTL_PLN_STR_BLK,  BR_MTL_PLN_STR_BLK,
+  R_MTL_PLN_STR_FLW,  BR_MTL_PLN_STR_FLW,
+
   R_TAG,          BR_TAG,         B_TAG,
   R_ACR,          BR_ACR,         B_ACR,
   R_ALS,          BR_ALS,         B_ALS,
@@ -102,6 +112,16 @@ enum TokenType {
     blk_imp_tab = has_tab_ind;  \
   }                             \
 }
+#define UPD_SCH_STT() {                              \
+  sch_stt = adv_sch_stt(sch_stt, cur_chr, &rlt_sch); \
+}
+#define SGL_PLN_SYM(POS, CTX) (                 \
+  rlt_sch == RS_NUL ? POS##_SGL_PLN_NUL_##CTX : \
+  rlt_sch == RS_BOL ? POS##_SGL_PLN_BOL_##CTX : \
+  rlt_sch == RS_INT ? POS##_SGL_PLN_INT_##CTX : \
+  rlt_sch == RS_FLT ? POS##_SGL_PLN_FLT_##CTX : \
+  POS##_SGL_PLN_STR_##CTX                       \
+)
 
 struct Scanner {
   int16_t row;
@@ -118,6 +138,8 @@ struct Scanner {
   int16_t cur_row;
   int16_t cur_col;
   int32_t cur_chr;
+  int8_t sch_stt;
+  ResultSchema rlt_sch;
 
   Scanner() {
     deserialize(NULL, 0);
@@ -201,6 +223,8 @@ struct Scanner {
     cur_row = row;
     cur_col = col;
     cur_chr = 0;
+    sch_stt = 0;
+    rlt_sch = RS_STR;
   }
 
   void flush() {
@@ -590,9 +614,9 @@ struct Scanner {
     bool is_lka_saf = (this->*is_plain_safe)(LKA);
     if (is_lka_saf || is_lka_wsp) {
       for (;;) {
-        if (is_lka_saf && LKA != '#' && LKA != ':') {ADV();MRK_END();}
-        else if (is_cur_saf && LKA == '#') {ADV();MRK_END();}
-        else if (is_lka_wsp) ADV();
+        if (is_lka_saf && LKA != '#' && LKA != ':') {ADV();MRK_END();UPD_SCH_STT();}
+        else if (is_cur_saf && LKA == '#') {ADV();MRK_END();UPD_SCH_STT();}
+        else if (is_lka_wsp) {ADV();UPD_SCH_STT();}
         else if (LKA == ':') ADV(); // check later
         else break;
 
@@ -602,7 +626,7 @@ struct Scanner {
         is_lka_saf = (this->*is_plain_safe)(LKA);
 
         if (cur_chr == ':') {
-          if (is_lka_saf) MRK_END();
+          if (is_lka_saf) {MRK_END();UPD_SCH_STT();}
           else return SCN_FAIL;
         }
       }
@@ -857,10 +881,10 @@ struct Scanner {
       if (VLD[BR_BLK_FLD_BGN] && is_br) return scn_blk_str_bgn(lexer, BR_BLK_FLD_BGN);
     }
 
-    bool maybe_sgl_pln_blk = (VLD[R_SGL_PLN_BLK] && is_r) || (VLD[BR_SGL_PLN_BLK] && is_br) || (VLD[B_SGL_PLN_BLK] && is_b);
-    bool maybe_sgl_pln_flw = (VLD[R_SGL_PLN_FLW] && is_r) || (VLD[BR_SGL_PLN_FLW] && is_br);
-    bool maybe_mtl_pln_blk = (VLD[R_MTL_PLN_BLK] && is_r) || (VLD[BR_MTL_PLN_BLK] && is_br);
-    bool maybe_mtl_pln_flw = (VLD[R_MTL_PLN_FLW] && is_r) || (VLD[BR_MTL_PLN_FLW] && is_br);
+    bool maybe_sgl_pln_blk = (VLD[R_SGL_PLN_STR_BLK] && is_r) || (VLD[BR_SGL_PLN_STR_BLK] && is_br) || (VLD[B_SGL_PLN_STR_BLK] && is_b);
+    bool maybe_sgl_pln_flw = (VLD[R_SGL_PLN_STR_FLW] && is_r) || (VLD[BR_SGL_PLN_STR_FLW] && is_br);
+    bool maybe_mtl_pln_blk = (VLD[R_MTL_PLN_STR_BLK] && is_r) || (VLD[BR_MTL_PLN_STR_BLK] && is_br);
+    bool maybe_mtl_pln_flw = (VLD[R_MTL_PLN_STR_FLW] && is_r) || (VLD[BR_MTL_PLN_STR_FLW] && is_br);
 
     if (maybe_sgl_pln_blk || maybe_sgl_pln_flw || maybe_mtl_pln_blk || maybe_mtl_pln_flw) {
       bool is_in_blk = maybe_sgl_pln_blk || maybe_mtl_pln_blk;
@@ -872,6 +896,7 @@ struct Scanner {
           || ((bgn_chr == '-' || bgn_chr == '?' || bgn_chr == ':')
             && (this->*is_plain_safe)(LKA));
         if (!is_plain_first) return false;
+        UPD_SCH_STT();
       } else {
         // no need to check the following cases:
         // ..X
@@ -879,6 +904,7 @@ struct Scanner {
         // --X
         // ---X
         // X: lookahead
+        sch_stt = SCH_STT_FRZ; // must be RS_STR
       }
 
       MRK_END();
@@ -898,11 +924,11 @@ struct Scanner {
       }
 
       if (end_row == bgn_row) {
-        if (maybe_sgl_pln_blk) {MAY_UPD_IMP_COL();RET_SYM(is_r ? R_SGL_PLN_BLK : is_br ? BR_SGL_PLN_BLK : B_SGL_PLN_BLK);}
-        if (maybe_sgl_pln_flw) RET_SYM(is_r ? R_SGL_PLN_FLW : BR_SGL_PLN_FLW);
+        if (maybe_sgl_pln_blk) {MAY_UPD_IMP_COL();RET_SYM(is_r ? SGL_PLN_SYM(R, BLK) : is_br ? SGL_PLN_SYM(BR, BLK) : SGL_PLN_SYM(B, BLK));}
+        if (maybe_sgl_pln_flw) RET_SYM(is_r ? SGL_PLN_SYM(R, FLW) : SGL_PLN_SYM(BR, FLW));
       } else {
-        if (maybe_mtl_pln_blk) {MAY_UPD_IMP_COL();RET_SYM(is_r ? R_MTL_PLN_BLK : BR_MTL_PLN_BLK);}
-        if (maybe_mtl_pln_flw) RET_SYM(is_r ? R_MTL_PLN_FLW : BR_MTL_PLN_FLW);
+        if (maybe_mtl_pln_blk) {MAY_UPD_IMP_COL();RET_SYM(is_r ? R_MTL_PLN_STR_BLK : BR_MTL_PLN_STR_BLK);}
+        if (maybe_mtl_pln_flw) RET_SYM(is_r ? R_MTL_PLN_STR_FLW : BR_MTL_PLN_STR_FLW);
       }
 
       return false;
