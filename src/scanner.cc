@@ -655,9 +655,10 @@ struct Scanner {
 
     bool allow_comment = !(VLD[R_DQT_STR_CTN] || VLD[BR_DQT_STR_CTN] || VLD[R_SQT_STR_CTN] || VLD[BR_SQT_STR_CTN]);
 
-    int16_t *ind_ptr = &ind_len_stk.back();
-    int16_t cur_ind = *ind_ptr--;
-    int16_t prt_ind = *ind_ptr;
+    vector<int16_t>::reverse_iterator ind_ptr = ind_len_stk.rbegin();
+    vector<int16_t>::reverse_iterator ind_end = ind_len_stk.rend();
+    int16_t cur_ind = *ind_ptr++;
+    int16_t prt_ind = ind_ptr == ind_end ? -1 : *ind_ptr;
     int16_t cur_ind_typ = ind_typ_stk.back();
 
     bool has_tab_ind = false;
