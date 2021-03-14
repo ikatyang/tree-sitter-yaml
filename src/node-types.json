@@ -442,6 +442,10 @@
     "named": true
   },
   {
+    "type": "comment",
+    "named": true
+  },
+  {
     "type": "directive_name",
     "named": true
   },
