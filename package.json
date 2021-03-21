@@ -38,6 +38,7 @@
   "files": [
     "/src/",
     "/bindings/node/",
+    "/binding.gyp",
     "/grammar.js"
   ]
 }
