@@ -50,9 +50,9 @@ module.exports = grammar({
     $._r_mtl_pln_str_blk,  $._br_mtl_pln_str_blk,
     $._r_mtl_pln_str_flw,  $._br_mtl_pln_str_flw,
 
-    $._r_tag,          $._br_tag,         $._b_tag,         // !tag
-    $._r_acr,          $._br_acr,         $._b_acr,         // &id
-    $._r_als,          $._br_als,         $._b_als,         // *id
+    $._r_tag,     $._br_tag,     $._b_tag,                   // !tag
+    $._r_acr_bgn, $._br_acr_bgn, $._b_acr_bgn, $._r_acr_ctn, // &id
+    $._r_als_bgn, $._br_als_bgn, $._b_als_bgn, $._r_als_ctn, // *id
 
     $._bl,
     $.comment,
@@ -454,6 +454,16 @@ module.exports = grammar({
     _r_als_val: $ => $._r_als,
     _br_als_val: $ => $._br_als,
     _b_als_val: $ => $._b_als,
+
+    _r_als: $ => seq($._r_als_bgn, $._r_als_ctn),
+    _br_als: $ => seq($._br_als_bgn, $._r_als_ctn),
+    _b_als: $ => seq($._b_als_bgn, $._r_als_ctn),
+
+    // anchor
+
+    _r_acr: $ => seq($._r_acr_bgn, $._r_acr_ctn),
+    _br_acr: $ => seq($._br_acr_bgn, $._r_acr_ctn),
+    _b_acr: $ => seq($._b_acr_bgn, $._r_acr_ctn),
   },
 });
 
@@ -469,8 +479,10 @@ module.exports = global_alias(global_alias(module.exports, {
   ..._("flow_node", "_r_prp_val", "_br_prp_val", "_r_sgl_prp_val", "_br_sgl_prp_val", "_b_sgl_prp_val"),
   ..._("tag", "_r_tag", "_br_tag", "_b_tag"),
   ..._("anchor", "_r_acr", "_br_acr", "_b_acr"),
+  ..._("anchor_name", "_r_acr_ctn"),
   ..._("flow_node", "_r_als_val", "_br_als_val", "_b_als_val"),
   ..._("alias", "_r_als", "_br_als", "_b_als"),
+  ..._("alias_name", "_r_als_ctn"),
   ..._("document", "_bgn_imp_doc", "_imp_doc"),
   ..._(["document"], "_drs_doc", "_exp_doc", "_doc_end",
                      "_bgn_imp_doc_end", "_drs_doc_end", "_exp_doc_end", "_imp_doc_end"),
@@ -528,6 +540,8 @@ module.exports = global_alias(global_alias(module.exports, {
   ..._("\"", "_r_dqt_str_end", "_br_dqt_str_end"),
   ..._("'", "_r_sqt_str_bgn", "_br_sqt_str_bgn", "_b_sqt_str_bgn"),
   ..._("'", "_r_sqt_str_end", "_br_sqt_str_end"),
+  ..._("*", "_r_als_bgn", "_br_als_bgn", "_b_als_bgn"),
+  ..._("&", "_r_acr_bgn", "_br_acr_bgn", "_b_acr_bgn"),
 });
 
 function _(alias_value, ...rule_names) {

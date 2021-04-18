@@ -1,5 +1,35 @@
 [
   {
+    "type": "alias",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "alias_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "anchor",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "anchor_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "block_mapping",
     "named": true,
     "fields": {},
@@ -390,7 +420,15 @@
     "named": false
   },
   {
+    "type": "&",
+    "named": false
+  },
+  {
     "type": "'",
+    "named": false
+  },
+  {
+    "type": "*",
     "named": false
   },
   {
@@ -430,11 +468,11 @@
     "named": false
   },
   {
-    "type": "alias",
+    "type": "alias_name",
     "named": true
   },
   {
-    "type": "anchor",
+    "type": "anchor_name",
     "named": true
   },
   {
