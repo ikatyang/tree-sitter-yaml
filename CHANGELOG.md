@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.5.0](https://github.com/ikatyang/tree-sitter-yaml/compare/v0.4.1...v0.5.0) (2021-04-18)
+
+
+### Features
+
+* expose `anchor_name`, `alias_name`, `&`, and `*` ([#24](https://github.com/ikatyang/tree-sitter-yaml/issues/24)) ([b77b438](https://github.com/ikatyang/tree-sitter-yaml/commit/b77b438))
+
+
+
 ## [0.4.1](https://github.com/ikatyang/tree-sitter-yaml/compare/v0.4.0...v0.4.1) (2021-03-21)
 
 
