@@ -14,20 +14,24 @@ Aliases in Block Sequence
       (block_sequence
         (block_sequence_item
           (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_sequence_item
           (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_sequence_item
           (flow_node
-            (alias)))
+            (alias
+              (alias_name))))
         (block_sequence_item
           (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Aliases in Explicit Block Mapping
@@ -44,16 +48,19 @@ Aliases in Explicit Block Mapping
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Aliases in Flow Objects
@@ -68,27 +75,32 @@ Aliases in Flow Objects
       (flow_mapping
         (flow_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (flow_sequence
               (flow_node
                 (plain_scalar
                   (string_scalar)))
               (flow_node
-                (anchor)
+                (anchor
+                  (anchor_name))
                 (plain_scalar
                   (string_scalar)))))
           value: (flow_node
-            (alias)))
+            (alias
+              (alias_name))))
         (flow_pair
           key: (flow_node
-            (alias))
+            (alias
+              (alias_name)))
           value: (flow_node
             (flow_sequence
               (flow_node
                 (plain_scalar
                   (string_scalar)))
               (flow_node
-                (alias))
+                (alias
+                  (alias_name)))
               (flow_node
                 (plain_scalar
                   (string_scalar))))))))))
@@ -107,18 +119,22 @@ Aliases in Implicit Block Mapping
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
           key: (flow_node
-            (alias))
+            (alias
+              (alias_name)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Allowed characters in alias
@@ -137,7 +153,8 @@ b: *:@*!$"<foo>:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -145,7 +162,8 @@ b: *:@*!$"<foo>:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Allowed characters in keys
@@ -284,11 +302,13 @@ key1: &alias value1
       (plain_scalar
         (string_scalar)))
     value: (flow_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (plain_scalar
         (string_scalar))))
   (flow_node
-    (anchor)))
+    (anchor
+      (anchor_name))))
 
 ================================================================================
 Anchor before sequence entry on same line [INVALID]
@@ -299,7 +319,8 @@ Anchor before sequence entry on same line [INVALID]
 
 (ERROR
   (flow_node
-    (anchor)))
+    (anchor
+      (anchor_name))))
 
 ================================================================================
 Anchor before zero indented sequence
@@ -321,7 +342,8 @@ seq:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_sequence
               (block_sequence_item
                 (flow_node
@@ -350,13 +372,15 @@ b: *anchor
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)))
+            (anchor
+              (anchor_name))))
         (block_mapping_pair
           key: (flow_node
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Anchor plus Alias [INVALID]
@@ -372,7 +396,8 @@ key2: &b *a
       (plain_scalar
         (string_scalar)))
     value: (flow_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (plain_scalar
         (string_scalar))))
   (block_mapping_pair
@@ -380,7 +405,8 @@ key2: &b *a
       (plain_scalar
         (string_scalar)))
     value: (flow_node
-      (anchor))))
+      (anchor
+        (anchor_name)))))
 
 ================================================================================
 Anchor with colon in the middle
@@ -399,7 +425,8 @@ key: &an:chor value
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))))))
 
@@ -417,7 +444,8 @@ Anchor with unicode character
       (block_sequence
         (block_sequence_item
           (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))))))
 
@@ -437,7 +465,8 @@ Anchors and Tags
       (block_sequence
         (block_sequence_item
           (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (tag)
             (plain_scalar
               (string_scalar))))
@@ -449,12 +478,14 @@ Anchors and Tags
         (block_sequence_item
           (flow_node
             (tag)
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (integer_scalar))))
         (block_sequence_item
           (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))))))
 
@@ -472,7 +503,8 @@ c: &d d
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
@@ -483,7 +515,8 @@ c: &d d
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))))))
 
@@ -511,7 +544,8 @@ Anchors on Empty Scalars
       (block_sequence
         (block_sequence_item
           (flow_node
-            (anchor)))
+            (anchor
+              (anchor_name))))
         (block_sequence_item
           (flow_node
             (plain_scalar
@@ -521,7 +555,8 @@ Anchors on Empty Scalars
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor))
+                  (anchor
+                    (anchor_name)))
                 value: (flow_node
                   (plain_scalar
                     (string_scalar))))
@@ -530,29 +565,35 @@ Anchors on Empty Scalars
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
-                  (anchor))))))
+                  (anchor
+                    (anchor_name)))))))
         (block_sequence_item
           (block_node
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor))
+                  (anchor
+                    (anchor_name)))
                 value: (flow_node
-                  (anchor))))))
+                  (anchor
+                    (anchor_name)))))))
         (block_sequence_item
           (block_node
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor))))))
+                  (anchor
+                    (anchor_name)))))))
         (block_sequence_item
           (block_node
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor))
+                  (anchor
+                    (anchor_name)))
                 value: (flow_node
-                  (anchor))))))))))
+                  (anchor
+                    (anchor_name)))))))))))
 
 ================================================================================
 Anchors With Colon in Name
@@ -569,11 +610,13 @@ foo:
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -581,7 +624,8 @@ foo:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Backslashes in singlequotes
@@ -1973,7 +2017,8 @@ seq:
       (plain_scalar
         (string_scalar))))
   (flow_node
-    (anchor)))
+    (anchor
+      (anchor_name))))
 
 ================================================================================
 Invalid block mapping key on same line as previous key [INVALID]
@@ -2418,7 +2463,8 @@ a: 1
               (string_scalar))))
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
@@ -2551,7 +2597,8 @@ Mapping with anchor on document start line [INVALID]
 (stream
   (document
     (flow_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (plain_scalar
         (string_scalar))))
   (MISSING _eof))
@@ -2568,14 +2615,17 @@ Mapping, key and flow sequence item anchors
 (stream
   (document
     (block_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (flow_sequence
               (flow_node
-                (anchor)
+                (anchor
+                  (anchor_name))
                 (plain_scalar
                   (string_scalar)))
               (flow_node
@@ -3444,7 +3494,8 @@ key: &anchor
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (tag)
             (block_mapping
               (block_mapping_pair
@@ -3464,20 +3515,10 @@ Node anchor in sequence [INVALID]
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_sequence
-        (block_sequence_item
-          (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR
-          (anchor))
-        (block_sequence_item
-          (flow_node
-            (plain_scalar
-              (string_scalar))))))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Node anchor not indented [INVALID]
@@ -3497,7 +3538,8 @@ key: &x
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)))
+            (anchor
+              (anchor_name))))
         (ERROR
           (tag))))))
 
@@ -3533,11 +3575,13 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
@@ -3548,7 +3592,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (comment)
             (block_mapping
               (block_mapping_pair
@@ -3566,7 +3611,8 @@ top7:
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
@@ -3577,11 +3623,13 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
@@ -3592,7 +3640,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
@@ -3606,7 +3655,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -3614,7 +3664,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))))))
 
@@ -3648,11 +3699,13 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
@@ -3663,7 +3716,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (comment)
             (block_mapping
               (block_mapping_pair
@@ -3681,7 +3735,8 @@ top7:
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
@@ -3692,11 +3747,13 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
@@ -3707,7 +3764,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
@@ -3721,7 +3779,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -3729,7 +3788,8 @@ top7:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))))))
 
@@ -3871,11 +3931,13 @@ top2: &node2
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
@@ -3886,10 +3948,12 @@ top2: &node2
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)))
+            (anchor
+              (anchor_name))))
         (ERROR
           (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))))))
 
@@ -3908,7 +3972,8 @@ string"
       (double_quote_scalar)))
   (document
     (flow_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (plain_scalar
         (string_scalar)))))
 
@@ -4051,7 +4116,8 @@ Single block sequence with anchor
 (stream
   (document
     (block_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (block_sequence
         (block_sequence_item
           (flow_node
@@ -4069,7 +4135,8 @@ Single block sequence with anchor and explicit document start
 (stream
   (document
     (block_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (block_sequence
         (block_sequence_item
           (flow_node
@@ -4595,7 +4662,8 @@ rbi:
               (comment)
               (block_sequence_item
                 (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))))))
         (block_mapping_pair
@@ -4606,7 +4674,8 @@ rbi:
             (block_sequence
               (block_sequence_item
                 (flow_node
-                  (alias)))
+                  (alias
+                    (alias_name))))
               (comment)
               (block_sequence_item
                 (flow_node
@@ -5009,7 +5078,8 @@ Spec Example 2.24. Global Tags
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (flow_mapping
                     (flow_pair
                       key: (flow_node
@@ -5041,7 +5111,8 @@ Spec Example 2.24. Global Tags
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
-                  (alias)))
+                  (alias
+                    (alias_name))))
               (block_mapping_pair
                 key: (flow_node
                   (plain_scalar
@@ -5071,7 +5142,8 @@ Spec Example 2.24. Global Tags
                   (plain_scalar
                     (string_scalar)))
                 value: (flow_node
-                  (alias)))
+                  (alias
+                    (alias_name))))
               (block_mapping_pair
                 key: (flow_node
                   (plain_scalar
@@ -5232,7 +5304,8 @@ comments:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
@@ -5286,7 +5359,8 @@ comments:
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))
+            (alias
+              (alias_name))))
         (block_mapping_pair
           key: (flow_node
             (plain_scalar
@@ -5660,7 +5734,8 @@ alias: *anchor
               (string_scalar)))
           value: (flow_node
             (tag)
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -5668,7 +5743,8 @@ alias: *anchor
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Spec Example 5.7. Block Scalar Indicators
@@ -6442,7 +6518,8 @@ Spec Example 6.23. Node Properties
         (block_mapping_pair
           key: (flow_node
             (tag)
-            (anchor)
+            (anchor
+              (anchor_name))
             (double_quote_scalar))
           value: (flow_node
             (tag)
@@ -6450,11 +6527,13 @@ Spec Example 6.23. Node Properties
               (string_scalar))))
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Spec Example 6.24. Verbatim Tags
@@ -6557,7 +6636,8 @@ Second occurrence: *anchor
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -6565,7 +6645,8 @@ Second occurrence: *anchor
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Spec Example 7.1. Alias Nodes
@@ -6586,7 +6667,8 @@ Reuse anchor: *anchor
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -6594,13 +6676,15 @@ Reuse anchor: *anchor
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))
+            (alias
+              (alias_name))))
         (block_mapping_pair
           key: (flow_node
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar))))
         (block_mapping_pair
@@ -6608,7 +6692,8 @@ Reuse anchor: *anchor
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (alias)))))))
+            (alias
+              (alias_name))))))))
 
 ================================================================================
 Spec Example 7.2. Empty Content
@@ -7350,11 +7435,13 @@ Spec Example 7.24. Flow Nodes
             (single_quote_scalar)))
         (block_sequence_item
           (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (double_quote_scalar)))
         (block_sequence_item
           (flow_node
-            (alias)))
+            (alias
+              (alias_name))))
         (block_sequence_item
           (flow_node
             (tag)))))))
@@ -8847,30 +8934,35 @@ value11
 (stream
   (document
     (flow_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (tag)
       (plain_scalar
         (string_scalar))))
   (document
     (flow_node
       (tag)
-      (anchor)
+      (anchor
+        (anchor_name))
       (plain_scalar
         (string_scalar))))
   (document
     (flow_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (tag)
       (plain_scalar
         (string_scalar))))
   (document
     (block_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (tag)
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (tag)
             (plain_scalar
               (string_scalar)))
@@ -8889,7 +8981,8 @@ value11
               (integer_scalar))))
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
@@ -8901,7 +8994,8 @@ value11
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (tag)
             (plain_scalar
               (string_scalar)))
@@ -8915,7 +9009,8 @@ value11
         (block_mapping_pair
           key: (flow_node
             (tag)
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
@@ -8924,7 +9019,8 @@ value11
   (document
     (flow_node
       (tag)
-      (anchor)
+      (anchor
+        (anchor_name))
       (plain_scalar
         (string_scalar)))))
 
@@ -9025,7 +9121,8 @@ Various location of anchors in flow sequence
 (stream
   (document
     (flow_node
-      (anchor)
+      (anchor
+        (anchor_name))
       (flow_sequence
         (flow_pair
           key: (flow_node
@@ -9036,7 +9133,8 @@ Various location of anchors in flow sequence
               (string_scalar))))
         (flow_pair
           key: (flow_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (plain_scalar
               (string_scalar)))
           value: (flow_node
@@ -9046,14 +9144,16 @@ Various location of anchors in flow sequence
           (flow_mapping
             (flow_pair
               key: (flow_node
-                (anchor)
+                (anchor
+                  (anchor_name))
                 (plain_scalar
                   (string_scalar)))
               value: (flow_node
                 (plain_scalar
                   (string_scalar))))))
         (flow_node
-          (anchor)
+          (anchor
+            (anchor_name))
           (flow_mapping
             (flow_pair
               key: (flow_node
@@ -9133,7 +9233,8 @@ block: > # lala
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (comment)
             (block_sequence
               (block_sequence_item
@@ -9223,7 +9324,8 @@ block: > # lala
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (comment)
             (block_sequence
               (block_sequence_item
@@ -9368,7 +9470,8 @@ top6:
                 key: (flow_node
                   (double_quote_scalar))
                 value: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))))))
         (block_mapping_pair
@@ -9380,7 +9483,8 @@ top6:
                 key: (flow_node
                   (single_quote_scalar))
                 value: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (plain_scalar
                     (string_scalar)))))))
         (block_mapping_pair
@@ -9388,11 +9492,13 @@ top6:
             (plain_scalar
               (string_scalar)))
           value: (block_node
-            (anchor)
+            (anchor
+              (anchor_name))
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (alias))
+                  (alias
+                    (alias_name)))
                 value: (flow_node
                   (plain_scalar
                     (string_scalar)))))))
@@ -9404,7 +9510,8 @@ top6:
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (alias))
+                  (alias
+                    (alias_name)))
                 value: (flow_node
                   (plain_scalar
                     (string_scalar)))))))
@@ -9423,7 +9530,8 @@ top6:
             (block_mapping
               (block_mapping_pair
                 key: (flow_node
-                  (anchor)
+                  (anchor
+                    (anchor_name))
                   (single_quote_scalar))
                 value: (flow_node
                   (plain_scalar

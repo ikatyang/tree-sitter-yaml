@@ -51,9 +51,9 @@ enum TokenType {
   R_MTL_PLN_STR_BLK,  BR_MTL_PLN_STR_BLK,
   R_MTL_PLN_STR_FLW,  BR_MTL_PLN_STR_FLW,
 
-  R_TAG,          BR_TAG,         B_TAG,
-  R_ACR,          BR_ACR,         B_ACR,
-  R_ALS,          BR_ALS,         B_ALS,
+  R_TAG,     BR_TAG,     B_TAG,
+  R_ACR_BGN, BR_ACR_BGN, B_ACR_BGN, R_ACR_CTN,
+  R_ALS_BGN, BR_ALS_BGN, B_ALS_BGN, R_ALS_CTN,
 
   BL,
   COMMENT,
@@ -474,21 +474,29 @@ struct Scanner {
     return false;
   }
 
-  bool scn_acr(TSLexer *lexer, TSSymbol result_symbol) {
+  bool scn_acr_bgn(TSLexer *lexer, TSSymbol result_symbol) {
     if (LKA != '&') return false;
     ADV();
     if (!is_ns_anchor_char(LKA)) return false;
-    ADV();
+    MRK_END();
+    RET_SYM(result_symbol);
+  }
+
+  bool scn_acr_ctn(TSLexer *lexer, TSSymbol result_symbol) {
     while (is_ns_anchor_char(LKA)) ADV();
     MRK_END();
     RET_SYM(result_symbol);
   }
 
-  bool scn_als(TSLexer *lexer, TSSymbol result_symbol) {
+  bool scn_als_bgn(TSLexer *lexer, TSSymbol result_symbol) {
     if (LKA != '*') return false;
     ADV();
     if (!is_ns_anchor_char(LKA)) return false;
-    ADV();
+    MRK_END();
+    RET_SYM(result_symbol);
+  }
+
+  bool scn_als_ctn(TSLexer *lexer, TSSymbol result_symbol) {
     while (is_ns_anchor_char(LKA)) ADV();
     MRK_END();
     RET_SYM(result_symbol);
@@ -730,16 +738,19 @@ struct Scanner {
       || (VLD[BR_SQT_STR_CTN] && is_br && scn_sqt_str_cnt(lexer, BR_SQT_STR_CTN))
     ) return true;
 
+    if (VLD[R_ACR_CTN] && is_r) return scn_acr_ctn(lexer, R_ACR_CTN);
+    if (VLD[R_ALS_CTN] && is_r) return scn_als_ctn(lexer, R_ALS_CTN);
+
     if (LKA == '%') {
       if (VLD[S_DIR_YML_BGN] && is_s) return scn_dir_bgn(lexer);
     } else if (LKA == '*') {
-      if (VLD[R_ALS] && is_r) {MAY_UPD_IMP_COL();return scn_als(lexer, R_ALS);}
-      if (VLD[BR_ALS] && is_br) {MAY_UPD_IMP_COL();return scn_als(lexer, BR_ALS);}
-      if (VLD[B_ALS] && is_b) {MAY_UPD_IMP_COL();return scn_als(lexer, B_ALS);}
+      if (VLD[R_ALS_BGN] && is_r) {MAY_UPD_IMP_COL();return scn_als_bgn(lexer, R_ALS_BGN);}
+      if (VLD[BR_ALS_BGN] && is_br) {MAY_UPD_IMP_COL();return scn_als_bgn(lexer, BR_ALS_BGN);}
+      if (VLD[B_ALS_BGN] && is_b) {MAY_UPD_IMP_COL();return scn_als_bgn(lexer, B_ALS_BGN);}
     } else if (LKA == '&') {
-      if (VLD[R_ACR] && is_r) {MAY_UPD_IMP_COL();return scn_acr(lexer, R_ACR);}
-      if (VLD[BR_ACR] && is_br) {MAY_UPD_IMP_COL();return scn_acr(lexer, BR_ACR);}
-      if (VLD[B_ACR] && is_b) {MAY_UPD_IMP_COL();return scn_acr(lexer, B_ACR);}
+      if (VLD[R_ACR_BGN] && is_r) {MAY_UPD_IMP_COL();return scn_acr_bgn(lexer, R_ACR_BGN);}
+      if (VLD[BR_ACR_BGN] && is_br) {MAY_UPD_IMP_COL();return scn_acr_bgn(lexer, BR_ACR_BGN);}
+      if (VLD[B_ACR_BGN] && is_b) {MAY_UPD_IMP_COL();return scn_acr_bgn(lexer, B_ACR_BGN);}
     } else if (LKA == '!') {
       if (VLD[R_TAG] && is_r) {MAY_UPD_IMP_COL();return scn_tag(lexer, R_TAG);}
       if (VLD[BR_TAG] && is_br) {MAY_UPD_IMP_COL();return scn_tag(lexer, BR_TAG);}
