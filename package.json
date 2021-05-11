@@ -33,7 +33,7 @@
   "devDependencies": {
     "get-stdin": "^8.0.0",
     "natural-orderby": "2.0.3",
-    "standard-version": "7.0.0"
+    "standard-version": "8.0.1"
   },
   "files": [
     "/src/",
