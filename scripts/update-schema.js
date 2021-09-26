@@ -38,6 +38,7 @@ getStdin().then(stdin => {
     path.resolve(__dirname, "../src/schema.generated.cc"),
     [
       `#include <cassert>`,
+      `#include <cstdint>`,
       `namespace tree_sitter_yaml {`,
       `const int8_t SCH_STT_FRZ = ${STATE_FREEZE};`,
       `enum ResultSchema ${block(enums.map((k) => `${k},`))};`,
