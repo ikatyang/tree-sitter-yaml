@@ -1,5 +1,5 @@
 /build
+target
 /node_modules
-
-/bindings/rust
-/Cargo.toml
+package-lock.json
+Cargo.lock
