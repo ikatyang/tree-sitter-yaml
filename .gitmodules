@@ -6,3 +6,6 @@
 	path = yaml-test-suite
 	url = https://github.com/yaml/yaml-test-suite
 	branch = data
+[submodule "yaml-spec"]
+	path = yaml-spec
+	url = https://github.com/yaml/yaml-spec

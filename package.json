@@ -31,9 +31,11 @@
     "nan": "^2.14.0"
   },
   "devDependencies": {
+    "@types/node": "18.16.19",
     "get-stdin": "^8.0.0",
     "natural-orderby": "2.0.3",
-    "standard-version": "7.0.0"
+    "standard-version": "7.0.0",
+    "vite-node": "0.32.2"
   },
   "files": [
     "/src/",
