@@ -1,0 +1,41 @@
+diff --git a/node_modules/regexp-util/lib/base.js b/node_modules/regexp-util/lib/base.js
+index b69b553..5a2840a 100644
+--- a/node_modules/regexp-util/lib/base.js
++++ b/node_modules/regexp-util/lib/base.js
+@@ -15,7 +15,7 @@ var Base = /** @class */ (function () {
+         return this._to_string();
+     };
+     // tslint:disable-next-line:naming-convention
+-    Base.prototype.toRegExp = function (flags) {
++    Base.prototype.toRegExp = function (flags = 'u') {
+         return new RegExp(this.toString(), flags);
+     };
+     return Base;
+diff --git a/node_modules/regexp-util/lib/charset.js b/node_modules/regexp-util/lib/charset.js
+index 1f17b18..c534a62 100644
+--- a/node_modules/regexp-util/lib/charset.js
++++ b/node_modules/regexp-util/lib/charset.js
+@@ -181,16 +181,6 @@ function split_ranges(data) {
+     var surrogate_ranges = [];
+     for (var i = 0; i < data.length; i++) {
+         var data_unit = data[i];
+-        var start = data_unit[0], end = data_unit[1];
+-        if (start >= 65536 /* Min */) {
+-            surrogate_ranges.push.apply(surrogate_ranges, data.slice(i));
+-            break;
+-        }
+-        if (end >= 65536 /* Min */) {
+-            normal.push([start, 65536 /* Min */ - 1]);
+-            surrogate_ranges.push.apply(surrogate_ranges, [[0x10000, end]].concat(data.slice(i + 1)));
+-            break;
+-        }
+         normal.push(data_unit);
+     }
+     return { normal: normal, surrogate: split_surrogate_ranges(surrogate_ranges) };
+@@ -251,5 +241,5 @@ function surrogate_pair(codepoint) {
+ }
+ function unicode(char) {
+     var hex = char.toString(16);
+-    return "\\u" + '0'.repeat(4 - hex.length) + hex;
++    return "\\u{" + hex + '}';
+ }

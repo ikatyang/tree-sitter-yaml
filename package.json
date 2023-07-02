@@ -16,8 +16,9 @@
   },
   "license": "MIT",
   "scripts": {
+    "prepare": "patch-package",
     "test": "yarn tree-sitter test",
-    "prepack": "bash ./scripts/update-schema.sh && yarn tree-sitter generate",
+    "prepack": "yarn tree-sitter generate",
     "release": "standard-version --commit-all",
     "tree-sitter": "./tree-sitter/target/release/tree-sitter"
   },
@@ -33,6 +34,9 @@
   "devDependencies": {
     "get-stdin": "^8.0.0",
     "natural-orderby": "2.0.3",
+    "patch-package": "^7.0.0",
+    "prettier": "^2.8.8",
+    "regexp-util": "^1.2.2",
     "standard-version": "7.0.0"
   },
   "files": [
