@@ -654,23 +654,16 @@ map:
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (block_node
-            (block_mapping
-              (block_mapping_pair
-                key: (flow_node
-                  (plain_scalar
-                    (string_scalar)))
-                value: (flow_node
-                  (double_quote_scalar)))
-              (ERROR))))))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (flow_node
+      (double_quote_scalar))))
 
 ================================================================================
 Bad indentation in mapping [INVALID]
@@ -981,17 +974,13 @@ block scalar: >
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (block_node
-            (block_scalar)))
-        (ERROR)))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (block_node
+      (block_scalar))))
 
 ================================================================================
 Block Sequence in Block Mapping
@@ -1212,19 +1201,15 @@ key: word1
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (comment)
-        (ERROR)))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (flow_node
+      (plain_scalar
+        (string_scalar))))
+  (comment))
 
 ================================================================================
 Comment that looks like a mapping key [INVALID]
@@ -1234,22 +1219,18 @@ this is #not a: key
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR
-          (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (comment)))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (flow_node
+      (plain_scalar
+        (string_scalar))))
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (comment))
 
 ================================================================================
 Comment without whitespace after block scalar indicator [INVALID]
@@ -1415,15 +1396,10 @@ key: "missing closing quote
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR)))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Doublequoted scalar starting with a tab
@@ -2116,8 +2092,10 @@ Invalid document markers in flow style [INVALID]
 
 --------------------------------------------------------------------------------
 
-(ERROR
-  (string_scalar))
+(stream
+  (ERROR)
+  (document)
+  (MISSING _eof))
 
 ================================================================================
 Invalid document-end marker in single quoted string [INVALID]
@@ -2192,8 +2170,7 @@ invalid: x
         (string_scalar))))
   (flow_node
     (plain_scalar
-      (string_scalar)))
-  (string_scalar))
+      (string_scalar))))
 
 ================================================================================
 Invalid mapping in plain multiline [INVALID]
@@ -2270,20 +2247,14 @@ invalid
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_sequence
-        (block_sequence_item
-          (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (block_sequence_item
-          (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR
-          (string_scalar))))))
+(ERROR
+  (block_sequence_item
+    (flow_node
+      (plain_scalar
+        (string_scalar))))
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Invalid scalar at the end of mapping [INVALID]
@@ -2295,28 +2266,24 @@ invalid
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
+(ERROR
+  (block_mapping_pair
+    (flow_node
+      (plain_scalar
+        (string_scalar)))
     (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (block_node
-            (block_sequence
-              (block_sequence_item
-                (flow_node
-                  (plain_scalar
-                    (string_scalar))))
-              (block_sequence_item
-                (flow_node
-                  (plain_scalar
-                    (string_scalar)))))))
-        (ERROR
+      (block_sequence
+        (block_sequence_item
           (flow_node
             (plain_scalar
-              (string_scalar))))))))
+              (string_scalar))))
+        (block_sequence_item
+          (flow_node
+            (plain_scalar
+              (string_scalar)))))))
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Invalid scalar at the end of sequence [INVALID]
@@ -2328,26 +2295,17 @@ key:
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (block_node
-            (block_sequence
-              (block_sequence_item
-                (flow_node
-                  (plain_scalar
-                    (string_scalar))))
-              (block_sequence_item
-                (flow_node
-                  (plain_scalar
-                    (string_scalar))))
-              (ERROR
-                (string_scalar)))))))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (block_sequence_item
+    (flow_node
+      (plain_scalar
+        (string_scalar))))
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Invalid sequene item on same line as previous item [INVALID]
@@ -2420,21 +2378,17 @@ invalid
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR
-          (flow_node
-            (plain_scalar
-              (string_scalar))))))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (flow_node
+      (plain_scalar
+        (string_scalar))))
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Key with anchor after missing explicit mapping value
@@ -2507,17 +2461,13 @@ block scalar: |
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (block_node
-            (block_scalar)))
-        (ERROR)))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (block_node
+      (block_scalar))))
 
 ================================================================================
 Literal unicode
@@ -2647,27 +2597,23 @@ top2
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (block_node
       (block_mapping
         (block_mapping_pair
           key: (flow_node
             (plain_scalar
               (string_scalar)))
-          value: (block_node
-            (block_mapping
-              (block_mapping_pair
-                key: (flow_node
-                  (plain_scalar
-                    (string_scalar)))
-                value: (flow_node
-                  (plain_scalar
-                    (string_scalar)))))))
-        (ERROR
-          (flow_node
+          value: (flow_node
             (plain_scalar
-              (string_scalar))))))))
+              (string_scalar)))))))
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Missing comma in flow [INVALID]
@@ -2678,19 +2624,14 @@ key: [ word1
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR
-          (flow_node
-            (plain_scalar
-              (string_scalar)))
-          (comment))))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (comment))
 
 ================================================================================
 Missing document-end marker before directive [INVALID]
@@ -2703,17 +2644,11 @@ scalar2
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document)
-  (ERROR
-    (flow_node
-      (plain_scalar
-        (string_scalar)))
-    (comment))
-  (document
-    (flow_node
-      (plain_scalar
-        (string_scalar)))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (comment))
 
 ================================================================================
 Missing space in YAML directive
@@ -2924,18 +2859,14 @@ Multiline double quoted implicit keys [INVALID]
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (double_quote_scalar
-              (escape_sequence)))
-          value: (flow_node
-            (plain_scalar
-              (integer_scalar))))
-        (ERROR)))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (double_quote_scalar
+        (escape_sequence)))
+    value: (flow_node
+      (plain_scalar
+        (integer_scalar)))))
 
 ================================================================================
 Multiline doublequoted flow mapping key without value
@@ -3207,17 +3138,13 @@ Multiline single quoted implicit keys [INVALID]
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (single_quote_scalar))
-          value: (flow_node
-            (plain_scalar
-              (integer_scalar))))
-        (ERROR)))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (single_quote_scalar))
+    value: (flow_node
+      (plain_scalar
+        (integer_scalar)))))
 
 ================================================================================
 Multiple Entry Block Sequence
@@ -3529,19 +3456,16 @@ key: &x
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (flow_node
-            (anchor
-              (anchor_name))))
-        (ERROR
-          (tag))))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (flow_node
+      (anchor
+        (anchor_name))))
+  (flow_node
+    (tag)))
 
 ================================================================================
 Node and Mapping Key Anchors
@@ -3922,40 +3846,34 @@ top2: &node2
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (block_node
+      (anchor
+        (anchor_name))
       (block_mapping
         (block_mapping_pair
           key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (block_node
             (anchor
               (anchor_name))
-            (block_mapping
-              (block_mapping_pair
-                key: (flow_node
-                  (anchor
-                    (anchor_name))
-                  (plain_scalar
-                    (string_scalar)))
-                value: (flow_node
-                  (plain_scalar
-                    (string_scalar)))))))
-        (block_mapping_pair
-          key: (flow_node
             (plain_scalar
               (string_scalar)))
           value: (flow_node
-            (anchor
-              (anchor_name))))
-        (ERROR
-          (flow_node
-            (anchor
-              (anchor_name))
             (plain_scalar
-              (string_scalar))))))))
+              (string_scalar)))))))
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (anchor
+    (anchor_name))
+  (flow_node
+    (anchor
+      (anchor_name))
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Scalars on --- line
@@ -8728,19 +8646,15 @@ plain: a
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar)))
-          value: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (comment)
-        (ERROR)))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (flow_node
+      (plain_scalar
+        (string_scalar))))
+  (comment))
 
 ================================================================================
 Trailing content after quoted value [INVALID]
@@ -9607,20 +9521,13 @@ c]
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR
-          (flow_node
-            (plain_scalar
-              (string_scalar)))
-          (string_scalar)
-          (string_scalar))))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar)))
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Wrong indented multiline quoted scalar [INVALID]
@@ -9632,17 +9539,10 @@ c"
 
 --------------------------------------------------------------------------------
 
-(stream
-  (document
-    (block_node
-      (block_mapping
-        (block_mapping_pair
-          key: (flow_node
-            (plain_scalar
-              (string_scalar))))
-        (ERROR
-          (string_scalar)
-          (string_scalar))))))
+(ERROR
+  (flow_node
+    (plain_scalar
+      (string_scalar))))
 
 ================================================================================
 Wrong indented sequence item [INVALID]
@@ -9671,18 +9571,14 @@ key: value
 
 --------------------------------------------------------------------------------
 
-(stream
-  (ERROR
-    (block_mapping_pair
-      key: (flow_node
-        (plain_scalar
-          (string_scalar)))
-      value: (flow_node
-        (plain_scalar
-          (string_scalar)))))
-  (document
-    (yaml_directive
-      (yaml_version))))
+(ERROR
+  (block_mapping_pair
+    key: (flow_node
+      (plain_scalar
+        (string_scalar)))
+    value: (flow_node
+      (plain_scalar
+        (string_scalar)))))
 
 ================================================================================
 Zero indented block scalar
